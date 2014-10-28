@@ -36,17 +36,17 @@ start_immutant() {
 }
 
 start_server  "embedded"
-start_servlet "tomcat7"
-start_servlet "tomcat8"
-start_servlet "jetty7"
-start_servlet "jetty8"
-start_servlet "jetty9"
+#start_servlet "tomcat7"
+#start_servlet "tomcat8"
+#start_servlet "jetty7"
+#start_servlet "jetty8"
+#start_servlet "jetty9"
 
-start_nginx_xxx "nginx-php"
-start_nginx_xxx "nginx-clojure"
-echo "If you cannot start nginx-clojure, please check jvm configuration in the file ../servers/nginx-clojure/conf/nginx.conf"
+#start_nginx_xxx "nginx-php"
+#start_nginx_xxx "nginx-clojure"
+#echo "If you cannot start nginx-clojure, please check jvm configuration in the file ../servers/nginx-clojure/conf/nginx.conf"
 
-start_immutant
+#start_immutant
 
 tail -fn 0 logs/run-servers
 

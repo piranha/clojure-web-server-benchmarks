@@ -50,24 +50,32 @@
 
   ;; :nginx-php 8081
 
-  (start-server! :ring-jetty 8082
+  #_(start-server! :ring-jetty 8082
     (fn [port]
       (jetty/run-jetty handler {:port port :join? false :max-threads 200})))
 
-  (start-server! :ring-simple 8083
+  #_(start-server! :ring-simple 8083
     (fn [port]
       (simpleweb/run-simpleweb handler {:port port})))
 
-  (start-server! :aleph 8084
+  #_(start-server! :aleph 8084
     (fn [port]
       (aleph.netty/leak-detector-level! :disabled)
       (aleph/start-server handler {:port port :executor :none})))
 
   (start-server! :http-kit 8087
     (fn [port]
+      (http-kit/run-server handler {:port port :queue-size 204800 :thread 4})))
+
+  (start-server! :http-kit 8088
+    (fn [port]
       (http-kit/run-server handler {:port port :queue-size 204800 :thread 8})))
 
-  (start-server! :ring-netty 8089
+  (start-server! :http-kit 8089
+    (fn [port]
+      (http-kit/run-server handler {:port port :queue-size 204800 :thread 8})))
+
+  #_(start-server! :ring-netty 8089
     (fn [port]
       (netty/start-server handler
         {:port port :zero-copy true
@@ -84,11 +92,11 @@
   ;; :nginx-clojure   8094
   ;; :immutant        8095
 
-  (start-server! :ring-undertow 8096
+  #_(start-server! :ring-undertow 8096
     (fn [port]
       (undertow/run-undertow handler {:port port})))
 
-  (start-server! :vertx 8097
+  #_(start-server! :vertx 8097
     (fn [port]
       (embed/set-vertx! (embed/vertx))
       (-> (http/server)
@@ -97,6 +105,6 @@
 
   ;; :tomcat8-servlet 8098
 
-  (start-server! :immutant2 8099
+  #_(start-server! :immutant2 8099
     (fn [port]
       (immutant/run handler {:port port}))))
